@@ -1,0 +1,25 @@
+﻿Ideas de cómo se va a resolver el Trabajo práctico
+
+
+*) Para resolver el enunciado voy a seguir cada uno de los cuatro pasos explicados en el mismo. La solución inicial de la cual se va a partir, si es la del trabajo práctico 1 o 2, sera aquella que consiga un mejor resultado.
+
+
+Comentarios sobre cada uno de los pasos
+
+
+*) Paso 1: Se corrió el código provisto sin cambios y luego de un tiempo fue interrumpido ya que este habría tardado una excesiva cantidad de tiempo en alcanzar una solución. Esto ocurre por la cantidad de variables que el modelo maneja: este modelo está planteado como un coloreo de grafo donde la combinación prenda-grupo es una variable, como tenemos 95 prendas y la máxima cantidad de grupos (colores) es exactamente el número de prendas, esto quiere decir que el modelo maneja 95^2 (9025) variables. A esto se suma que se usa el algoritmo de Branch and Bound por lo que deben evaluarse varias alternativas antes de hallar una solución.
+
+
+*) Paso 2: La solución inicial se obtiene como el resultado de correr la heurística del TP 1 ya que obtuvo un mejor tiempo (108) que la del TP 2 (110). Esta solución inicial es la que se va a hardcodear en buscarSolucionInicial(); el archivo con esta solución está en git con el nombre solucion_T1.txt
+
+
+*)Paso 3:Al asignarle a la variables maxiColor el número de grupo que me dio la solución inicial (7) se ha reducido considerablemente el número de variables que maneja el modelo, ahora son 95*7 (665). Al correr el algoritmo con estos cambios se ha alcanzado una solución en aproximadamente 30 minutos la cual dio 107, esta solución aún no es la óptima como indica el algoritmo.
+
+
+*) Paso 4: La nueva restricción expresa la siguiente sentencia “No se puede pintar vértices del color K+1 hasta que el color K sea utilizado”. Esta restricción ayuda a eliminar aquellas soluciones que son simétricas, o sea aquellas soluciones que para los mismos conjuntos de vértices (prendas) asigna siempre un mismo color (grupo). Por ejemplo si en total tenemos 5 prendas 1,2,3,4 y 5, hay dos soluciones donde en ambas se forma el grupo 1 con las prendas 1,2 y 3, y el grupo 2 con 4 y 5, siendo la única diferencia entre ambas soluciones que en una le asigna al grupo 1 el color K y al grupo 2 el color K+1, mientras que en la otra solución le asigna al grupo 1 el color K+1 y al 2 el color K; con esto el algoritmo va a elegir una de las soluciones y no va a analizar la otra. Esto elimina una gran cantidad de soluciones a evaluar ya que de un grupo de soluciones idénticas va a elegir solamente una, reduciendo así el tiempo que tarda en hallar la solución
+
+
+Comentarios Finales
+
+
+*) Con este Trabajo práctico hemos podido ver en la práctica la utilización de un algoritmo de  programación lineal entera para mejorar la solución obtenida por la heurística de un TP anterior que solamente pudo aproximarse la solución óptima. Además de esto este TP ayuda a ver el uso de las restricciones para poder reducir el tiempo de resolución del algoritmo y así obtener la solución más rápido.
